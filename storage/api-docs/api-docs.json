@@ -1,0 +1,1008 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Documentation: User To Do",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/user/login": {
+            "post": {
+                "tags": [
+                    "Login"
+                ],
+                "summary": "User login",
+                "description": "Logs in a user and returns user data with a token",
+                "operationId": "loginUser",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "email",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "bhavik.test@yopmail.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "format": "password",
+                                        "example": "User12345"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 200
+                                        },
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "User logged in successfully."
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "user_id": {
+                                                    "type": "integer",
+                                                    "example": 930952413
+                                                },
+                                                "first_name": {
+                                                    "type": "string",
+                                                    "example": "Bhavik"
+                                                },
+                                                "last_name": {
+                                                    "type": "string",
+                                                    "example": "Bhatiya"
+                                                },
+                                                "email": {
+                                                    "type": "string",
+                                                    "format": "email",
+                                                    "example": "bhavik.test@yopmail.com"
+                                                },
+                                                "email_verified_at": {
+                                                    "type": "string",
+                                                    "format": "datetime",
+                                                    "example": null,
+                                                    "nullable": true
+                                                },
+                                                "created_at": {
+                                                    "type": "string",
+                                                    "format": "datetime",
+                                                    "example": "2024-06-29T04:48:31.000000Z"
+                                                },
+                                                "updated_at": {
+                                                    "type": "string",
+                                                    "format": "datetime",
+                                                    "example": "2024-06-29T04:48:31.000000Z"
+                                                },
+                                                "deleted_at": {
+                                                    "type": "string",
+                                                    "format": "datetime",
+                                                    "example": null,
+                                                    "nullable": true
+                                                },
+                                                "token": {
+                                                    "type": "string",
+                                                    "example": "eyJ0eXAiOiJKV1QiLCJhbGci....."
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 401
+                                        },
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Email or password wrong."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "x_api_key": [],
+                        "app_lang": []
+                    }
+                ]
+            }
+        },
+        "/api/user/todos": {
+            "get": {
+                "tags": [
+                    "Todo"
+                ],
+                "summary": "List all to dos of the logged in user",
+                "operationId": "todolistsearch",
+                "parameters": [
+                    {
+                        "name": "search",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "example": "test"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "List of user todos",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 200
+                                        },
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "To dos fetched successfully."
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "current_page": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "data": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "properties": {
+                                                            "id": {
+                                                                "type": "integer",
+                                                                "example": 1
+                                                            },
+                                                            "todo_id": {
+                                                                "type": "integer",
+                                                                "example": 6261184744
+                                                            },
+                                                            "user_id": {
+                                                                "type": "integer",
+                                                                "example": 930952413
+                                                            },
+                                                            "todo_name": {
+                                                                "type": "string",
+                                                                "example": "test"
+                                                            },
+                                                            "is_archived": {
+                                                                "type": "integer",
+                                                                "example": 0
+                                                            },
+                                                            "created_at": {
+                                                                "type": "string",
+                                                                "format": "date-time",
+                                                                "example": "2024-06-29T08:13:30.000000Z"
+                                                            },
+                                                            "updated_at": {
+                                                                "type": "string",
+                                                                "format": "date-time",
+                                                                "example": "2024-06-29T08:13:30.000000Z"
+                                                            },
+                                                            "deleted_at": {
+                                                                "type": "string",
+                                                                "format": "date-time",
+                                                                "example": null,
+                                                                "nullable": true
+                                                            },
+                                                            "items": {
+                                                                "type": "array",
+                                                                "items": {
+                                                                    "properties": {
+                                                                        "id": {
+                                                                            "type": "integer",
+                                                                            "example": 1
+                                                                        },
+                                                                        "list_id": {
+                                                                            "type": "integer",
+                                                                            "example": 34725545444
+                                                                        },
+                                                                        "todo_id": {
+                                                                            "type": "integer",
+                                                                            "example": 6261184744
+                                                                        },
+                                                                        "list_item": {
+                                                                            "type": "string",
+                                                                            "example": "What is your nameee?"
+                                                                        },
+                                                                        "is_completed": {
+                                                                            "type": "integer",
+                                                                            "example": 0
+                                                                        },
+                                                                        "created_at": {
+                                                                            "type": "string",
+                                                                            "format": "date-time",
+                                                                            "example": "2024-06-29T08:13:30.000000Z"
+                                                                        },
+                                                                        "updated_at": {
+                                                                            "type": "string",
+                                                                            "format": "date-time",
+                                                                            "example": "2024-06-29T08:13:30.000000Z"
+                                                                        },
+                                                                        "deleted_at": {
+                                                                            "type": "string",
+                                                                            "format": "date-time",
+                                                                            "example": null,
+                                                                            "nullable": true
+                                                                        }
+                                                                    },
+                                                                    "type": "object"
+                                                                }
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    }
+                                                },
+                                                "first_page_url": {
+                                                    "type": "string",
+                                                    "example": "http://localhost:8000/api/user/todos?page=1"
+                                                },
+                                                "from": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "last_page": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "last_page_url": {
+                                                    "type": "string",
+                                                    "example": "http://localhost:8000/api/user/todos?page=1"
+                                                },
+                                                "links": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "properties": {
+                                                            "url": {
+                                                                "type": "string",
+                                                                "example": null,
+                                                                "nullable": true
+                                                            },
+                                                            "label": {
+                                                                "type": "string",
+                                                                "example": "&laquo; Previous"
+                                                            },
+                                                            "active": {
+                                                                "type": "boolean",
+                                                                "example": false
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    }
+                                                },
+                                                "next_page_url": {
+                                                    "type": "string",
+                                                    "example": null,
+                                                    "nullable": true
+                                                },
+                                                "path": {
+                                                    "type": "string",
+                                                    "example": "http://localhost:8000/api/user/todos"
+                                                },
+                                                "per_page": {
+                                                    "type": "integer",
+                                                    "example": 10
+                                                },
+                                                "prev_page_url": {
+                                                    "type": "string",
+                                                    "example": null,
+                                                    "nullable": true
+                                                },
+                                                "to": {
+                                                    "type": "integer",
+                                                    "example": 3
+                                                },
+                                                "total": {
+                                                    "type": "integer",
+                                                    "example": 3
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "x_api_key": [],
+                        "app_lang": [],
+                        "passport": []
+                    }
+                ]
+            }
+        },
+        "/api/todo/{todoId}/view": {
+            "get": {
+                "tags": [
+                    "Todo"
+                ],
+                "summary": "View specific todo by ID",
+                "operationId": "c43ff45f270692b9c25983d84574415c",
+                "parameters": [
+                    {
+                        "name": "todoId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 6261184744
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Todo fetched successfully.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 200
+                                        },
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Todo fetched successfully."
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "todo_id": {
+                                                    "type": "integer",
+                                                    "example": 6261184744
+                                                },
+                                                "user_id": {
+                                                    "type": "integer",
+                                                    "example": 930952413
+                                                },
+                                                "todo_name": {
+                                                    "type": "string",
+                                                    "example": "test"
+                                                },
+                                                "is_archived": {
+                                                    "type": "integer",
+                                                    "example": 0
+                                                },
+                                                "created_at": {
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2024-06-29T08:13:30.000000Z"
+                                                },
+                                                "updated_at": {
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2024-06-29T08:13:30.000000Z"
+                                                },
+                                                "deleted_at": {
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": null,
+                                                    "nullable": true
+                                                },
+                                                "items": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "properties": {
+                                                            "id": {
+                                                                "type": "integer",
+                                                                "example": 1
+                                                            },
+                                                            "list_id": {
+                                                                "type": "integer",
+                                                                "example": 34725545444
+                                                            },
+                                                            "todo_id": {
+                                                                "type": "integer",
+                                                                "example": 6261184744
+                                                            },
+                                                            "list_item": {
+                                                                "type": "string",
+                                                                "example": "What is your nameee?"
+                                                            },
+                                                            "is_completed": {
+                                                                "type": "integer",
+                                                                "example": 0
+                                                            },
+                                                            "created_at": {
+                                                                "type": "string",
+                                                                "format": "date-time",
+                                                                "example": "2024-06-29T08:13:30.000000Z"
+                                                            },
+                                                            "updated_at": {
+                                                                "type": "string",
+                                                                "format": "date-time",
+                                                                "example": "2024-06-29T08:13:30.000000Z"
+                                                            },
+                                                            "deleted_at": {
+                                                                "type": "string",
+                                                                "format": "date-time",
+                                                                "example": null,
+                                                                "nullable": true
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    }
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "x_api_key": [],
+                        "app_lang": [],
+                        "passport": []
+                    }
+                ]
+            }
+        },
+        "/api/create/todo": {
+            "post": {
+                "tags": [
+                    "Todo"
+                ],
+                "summary": "Create a new todo",
+                "operationId": "fd50d82115813a152ebb79a5548a6d83",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "todo_name": {
+                                        "type": "string",
+                                        "example": "test1"
+                                    },
+                                    "list": {
+                                        "properties": {
+                                            "0": {
+                                                "type": "string",
+                                                "example": "Email follow up for projects"
+                                            },
+                                            "1": {
+                                                "type": "string",
+                                                "example": "Check the new task"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 200
+                                        },
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Todo List created successfully."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "x_api_key": [],
+                        "app_lang": [],
+                        "passport": []
+                    }
+                ]
+            }
+        },
+        "/api/todo/{todoId}/update": {
+            "patch": {
+                "tags": [
+                    "Todo"
+                ],
+                "summary": "Update specific todo by ID",
+                "operationId": "d230fa114fe12cf2f0a2727f21566ec4",
+                "parameters": [
+                    {
+                        "name": "todoId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 6261184744
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "todo_name": {
+                                        "type": "string",
+                                        "example": "testa1a"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Todo updated successfully.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 200
+                                        },
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Todo updated successfully."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "x_api_key": [],
+                        "app_lang": [],
+                        "passport": []
+                    }
+                ]
+            }
+        },
+        "/api/todo/item/{itemId}/update": {
+            "patch": {
+                "tags": [
+                    "Todo"
+                ],
+                "summary": "Update specific todo by ID",
+                "operationId": "a37962b8d72c93bbe13032073d6c0672",
+                "parameters": [
+                    {
+                        "name": "itemId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 34725545444
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "list_item": {
+                                        "type": "string",
+                                        "example": "What is your nameeessss?"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Todo item updated successfully.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 200
+                                        },
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Todo item updated successfully."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "x_api_key": [],
+                        "app_lang": [],
+                        "passport": []
+                    }
+                ]
+            }
+        },
+        "/api/todo/{todoId}/delete": {
+            "delete": {
+                "tags": [
+                    "Todo"
+                ],
+                "summary": "delete a todo by ID",
+                "operationId": "1d899f0b8fb2dad294e0dcca43399f6b",
+                "parameters": [
+                    {
+                        "name": "todoId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 6261184744
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "To do deleted successfully.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 200
+                                        },
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "To do deleted successfully."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "x_api_key": [],
+                        "app_lang": [],
+                        "passport": []
+                    }
+                ]
+            }
+        },
+        "/api/todo/item/{list_id}/delete": {
+            "delete": {
+                "tags": [
+                    "Todo"
+                ],
+                "summary": "delete a todo by ID",
+                "operationId": "88a0df834278ad4cd62798eaa58ad4c8",
+                "parameters": [
+                    {
+                        "name": "list_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 34725545444
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "To do item deleted successfully.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 200
+                                        },
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "To do item deleted successfully."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "x_api_key": [],
+                        "app_lang": [],
+                        "passport": []
+                    }
+                ]
+            }
+        },
+        "/api/todo/{todoId}/archieve": {
+            "patch": {
+                "tags": [
+                    "Todo"
+                ],
+                "summary": "Archive a todo item by ID",
+                "operationId": "b669e43c27dee5fa0e4506ed3afcbaa9",
+                "parameters": [
+                    {
+                        "name": "todoId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 6261184744
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Todo item archived successfully.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 200
+                                        },
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Todo item archived successfully."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "x_api_key": [],
+                        "app_lang": [],
+                        "passport": []
+                    }
+                ]
+            }
+        },
+        "/api/todo/{todoId}/unarchieve": {
+            "patch": {
+                "tags": [
+                    "Todo"
+                ],
+                "summary": "Unarchive a todo item by ID",
+                "operationId": "89fa2d7f6268e9da82842fd11d0a41b8",
+                "parameters": [
+                    {
+                        "name": "todoId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 6261184744
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Todo item unarchieved successfully.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 200
+                                        },
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Todo item unarchieved successfully."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "x_api_key": [],
+                        "app_lang": [],
+                        "passport": []
+                    }
+                ]
+            }
+        },
+        "/api/todo/item/{itemId}/mark-complete": {
+            "patch": {
+                "tags": [
+                    "Todo"
+                ],
+                "summary": "mark complete a todo item by ID",
+                "operationId": "1cc9352adfd13ec05f9fc8ad8e5759cb",
+                "parameters": [
+                    {
+                        "name": "itemId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 36151430765
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Todo item completed successfully.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 200
+                                        },
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Todo item completed successfully."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "x_api_key": [],
+                        "app_lang": [],
+                        "passport": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "x_api_key": {
+                "type": "apiKey",
+                "description": "A short description for security scheme",
+                "name": "X-API-Key",
+                "in": "header"
+            },
+            "app_lang": {
+                "type": "apiKey",
+                "description": "A short description for security scheme",
+                "name": "app-language",
+                "in": "header"
+            },
+            "passport": {
+                "type": "http",
+                "in": "header",
+                "name": "bearer",
+                "scheme": "bearer",
+                "bearerFormat": "JWT"
+            }
+        }
+    },
+    "security": {
+        "1": {
+            "x_api_key": [],
+            "app_lang": [],
+            "passport": []
+        }
+    }
+}
